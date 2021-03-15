@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -3086933284124601392}
   m_Layer: 0
   m_Name: Problem Prefab 1
-  m_TagString: puddle
+  m_TagString: problem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -11,9 +11,10 @@ public class Countdown : MonoBehaviour
 
     public Text countDisplay;            //Text variable for GameObject reference
 
-    public GameObject problem1;
-    public GameObject problem2;
-    public GameObject problem3;
+    //public GameObject puddle;
+    //public GameObject pizza;
+    //public GameObject children;
+    public GameObject problem;
     //for problems
 
     // PRIVATE DECLARATIONS
@@ -39,13 +40,8 @@ public class Countdown : MonoBehaviour
         timerIsRunning = false;
         BeginTimer();
 
-        //THIS DOES NOT WORK -- I don't know how to make it recognize which
-        //Prefabs it needs to make
-        //problem1 = GameObject.FindWithTag("puddle");
-        //problem2 = GameObject.FindWithTag("pizza");
-        //problem3 = GameObject.FindWithTag("children");
-}
-        
+    }
+
 
 
     public void BeginTimer()
@@ -78,13 +74,15 @@ public class Countdown : MonoBehaviour
 
     private IEnumerator UpdateTimer()
     {
+        Invoke("SpawnPuddles", 3.0f);
         while (timerIsRunning)
         {
             //I'm not going to touch this for now:
             // Spawn problems
-            Invoke("SpawnPuddles", 10.0f);
-            Invoke("SpawnPizza", 20.0f);
+            
             elapsedTime += Time.deltaTime;
+             
+            //Invoke("SpawnPizza", 20.0f);
             timePlaying = TimeSpan.FromSeconds(elapsedTime);
             if (elapsedTime < 720.00)       //720.00 "seconds" is equal to 12min00seconds
             {
@@ -93,7 +91,7 @@ public class Countdown : MonoBehaviour
 
             if (elapsedTime >= 720.00)          // if time >= 12:00pm
             {
-                Invoke("SpawnCrowd", 2.0f);
+                //Invoke("SpawnCrowd", 2.0f);
                 if (elapsedTime > 780.00)           // if time is greater than 12:59
                 {                                   // then convert to 01:00 (rather than 13:00)
                     timePlaying = TimeSpan.FromSeconds(elapsedTime - 720.00);    //subtract 12:00
@@ -153,61 +151,61 @@ public class Countdown : MonoBehaviour
 
         //problem = GameObject.FindWithTag("puddle");
         // Need to make more prefabs of different problem types then randomly choose one 
-        GameObject problemInstance = Instantiate(problem1, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
-        //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
+        GameObject problemInstance = Instantiate(problem, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
+        problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
         //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
     }
 
-    void SpawnPizza()
-    {
-        float spawn_x;
-        float spawn_y;
+    //void SpawnPizza()
+    //{
+    //    float spawn_x;
+    //    float spawn_y;
 
-        float[,] room_ranges = new float[,]
-        {
-            { -8.7f, 3.5f, -3.7f, 0.0f },
-            { -0.5f, 4.0f, 1.6f, 1.15f },
-            { 4.7f, 4.0f, 9.0f, 1.0f },
-            { -9.3f, -3.3f, -3.4f, -4.0f },
-            { -0.4f, -2.0f, 3.0f, -4.2f },
-            { 5.8f, -1.7f, 9.3f, -4.1f }
-        };
+    //    float[,] room_ranges = new float[,]
+    //    {
+    //        { -8.7f, 3.5f, -3.7f, 0.0f },
+    //        { -0.5f, 4.0f, 1.6f, 1.15f },
+    //        { 4.7f, 4.0f, 9.0f, 1.0f },
+    //        { -9.3f, -3.3f, -3.4f, -4.0f },
+    //        { -0.4f, -2.0f, 3.0f, -4.2f },
+    //        { 5.8f, -1.7f, 9.3f, -4.1f }
+    //    };
 
-        int room_index = UnityEngine.Random.Range(0, 6);
-        spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
-        spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
+    //    int room_index = UnityEngine.Random.Range(0, 6);
+    //    spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
+    //    spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
 
-        //problem = GameObject.FindWithTag("pizza");
-        // Need to make more prefabs of different problem types then randomly choose one 
-        GameObject problemInstance = Instantiate(problem2, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
-        //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
-        //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
-    }
+    //    //problem = GameObject.FindWithTag("pizza");
+    //    // Need to make more prefabs of different problem types then randomly choose one 
+    //    GameObject problemInstance = Instantiate(pizza, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
+    //    //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
+    //    //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
+    //}
 
-    void SpawnCrowd()
-    {
-        float spawn_x;
-        float spawn_y;
+    //void SpawnCrowd()
+    //{
+    //    float spawn_x;
+    //    float spawn_y;
 
-        float[,] room_ranges = new float[,]
-        {
-            { -8.7f, 3.5f, -3.7f, 0.0f },
-            { -0.5f, 4.0f, 1.6f, 1.15f },
-            { 4.7f, 4.0f, 9.0f, 1.0f },
-            { -9.3f, -3.3f, -3.4f, -4.0f },
-            { -0.4f, -2.0f, 3.0f, -4.2f },
-            { 5.8f, -1.7f, 9.3f, -4.1f }
-        };
+    //    float[,] room_ranges = new float[,]
+    //    {
+    //        { -8.7f, 3.5f, -3.7f, 0.0f },
+    //        { -0.5f, 4.0f, 1.6f, 1.15f },
+    //        { 4.7f, 4.0f, 9.0f, 1.0f },
+    //        { -9.3f, -3.3f, -3.4f, -4.0f },
+    //        { -0.4f, -2.0f, 3.0f, -4.2f },
+    //        { 5.8f, -1.7f, 9.3f, -4.1f }
+    //    };
 
-        int room_index = UnityEngine.Random.Range(0, 6);
-        spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
-        spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
+    //    int room_index = UnityEngine.Random.Range(0, 6);
+    //    spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
+    //    spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
 
-       // problem = GameObject.FindWithTag("children");
-        // Need to make more prefabs of different problem types then randomly choose one 
-        GameObject problemInstance = Instantiate(problem3, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
-        //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
-        //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
-    }
+    //   // problem = GameObject.FindWithTag("children");
+    //    // Need to make more prefabs of different problem types then randomly choose one 
+    //    GameObject problemInstance = Instantiate(children, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
+    //    //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
+    //    //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
+    //}
 
 }
