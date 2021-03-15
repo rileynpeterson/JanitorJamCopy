@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1394190631205273611}
   - component: {fileID: 2303506683424916138}
   - component: {fileID: -3086933284124601392}
+  - component: {fileID: 3894639976191745030}
   m_Layer: 0
-  m_Name: Problem Prefab
-  m_TagString: problem
+  m_Name: Problem3 Prefab
+  m_TagString: children
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +97,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solvedByMop: 0
-  solvedByBroom: 0
+  solvedByTape: 0
+  solvedByLadder: 0
+  solvedByScrewDriver: 0
+  solvedByWrench: 0
+  solvedByHose: 1
+--- !u!50 &3894639976191745030
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481731737495975509}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5171147567929279752
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +134,7 @@ GameObject:
   - component: {fileID: 3805338313069706384}
   - component: {fileID: 1978811751778419758}
   m_Layer: 0
-  m_Name: spill
+  m_Name: crowdChildren
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,8 +148,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5171147567929279752}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.61, y: 0, z: 0}
-  m_LocalScale: {x: 0.567962, y: 0.20398875, z: 0.36311823}
+  m_LocalPosition: {x: 3.49, y: 0.37, z: 0}
+  m_LocalScale: {x: 4.259634, y: 1.5666043, z: 0.36311823}
   m_Children: []
   m_Father: {fileID: 1394190631205273611}
   m_RootOrder: 0
@@ -167,7 +193,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 660cf843f7dc95647a73d437523e628b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91ed29ac1d36b4e94960c4c346931739, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

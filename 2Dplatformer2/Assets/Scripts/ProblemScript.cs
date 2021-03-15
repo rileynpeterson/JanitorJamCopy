@@ -7,7 +7,11 @@ public class ProblemScript : MonoBehaviour
     private GameObject playerObject;
 
     public bool solvedByMop;
-    public bool solvedByBroom;
+    public bool solvedByTape;
+    public bool solvedByLadder;
+    public bool solvedByScrewDriver;
+    public bool solvedByWrench;
+    public bool solvedByHose;
 
 
     private float distance;

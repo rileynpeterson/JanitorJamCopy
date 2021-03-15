@@ -6,6 +6,9 @@ TagManager:
   tags:
   - problem
   - Tool
+  - puddle
+  - pizza
+  - children
   layers:
   - Default
   - TransparentFX
