@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class ToolPickup : MonoBehaviour
 {
-
-    // NOTE: THIS SCRIPT IS NOW ATTATCHED TO THE PLAYER OBJECT
-
     public GameObject closestTool;
 
     public bool hasTool = false;
-    public GameObject pickedUpTool = null;
+    public string pickedUpToolName = null;
 
     private float distance;
-    private float minimumDistance = 2f;
+    private float minimumDistance = 1f;
 
     void Start()
     {
@@ -26,21 +23,22 @@ public class ToolPickup : MonoBehaviour
         closestTool = FindClosestTool();
 
         distance = Vector3.Distance(closestTool.transform.position, transform.position);
-        
-        if (Input.GetKeyDown(KeyCode.X)) {
-            if (distance <= minimumDistance) { 
-                if (!hasTool) { // close to tool and doesn't have tool
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (!hasTool)
+            {
+                if (distance <= minimumDistance)
+                {
                     PickUpTool();
                 }
-                else // close to tool and has tool
-                {
-                    SwapTool();
-                }
             }
-
-            else { // not close to tool and has tool
+            else
+            {
                 DropTool();
             }
+            
+            
         }
 
 
@@ -70,25 +68,18 @@ public class ToolPickup : MonoBehaviour
     }
 
     void PickUpTool()
-     {
-        hasTool = true;
-        //pickedUpTool = closestTool
-        //pickedUpTool = GetCorrespondingObjectFromSource(closestTool);
-        Destroy(closestTool);
-     }
-
-     void DropTool()
-     {
-        hasTool = false;
-        GameObject toolInstance = Instantiate(pickedUpTool, transform);
-        pickedUpTool = null;
-    }
-
-    void SwapTool()
     {
-        GameObject toolInstance = Instantiate(pickedUpTool, transform);
-        //pickedUpTool = closestTool
-        //pickedUpTool = GetCorrespondingObjectFromSource(closestTool);
+        hasTool = true;
+        pickedUpToolName = closestTool.name;
+        Destroy(closestTool);
     }
- 
+
+    void DropTool()
+    {
+        hasTool = false;
+        GameObject toolInstance = (GameObject)Instantiate(Resources.Load(pickedUpToolName), transform.position, Quaternion.identity);
+        toolInstance.name = pickedUpToolName;
+        pickedUpToolName = null;
+    }
+
 }
