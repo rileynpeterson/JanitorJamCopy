@@ -13,13 +13,14 @@ public class ProblemScript : MonoBehaviour
     public bool solvedByScrewDriver;
     public bool solvedByWrench;
     public bool solvedByHose;
-
-
+    private bool[] solvedArray;
+    private string[] toolNameArray = { "mop", "tape", "ladder", "screwDriver", "wrench", "hose" };
     private float distance;
     private float minimumDistance = 2f;
 
     void Start()
     {
+        solvedArray = new bool[] { solvedByMop, solvedByTape, solvedByLadder, solvedByScrewDriver, solvedByWrench, solvedByHose }; 
         playerObject = GameObject.FindWithTag("Player");
     }
 
@@ -31,16 +32,16 @@ public class ProblemScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (true)
+                for (int i = 0; i < solvedArray.Length; i++)
                 {
-                    //if (gameObject.tag == "puddle")
-                    //{
-                    //    other.PuddleSolved();
-                      //  Debug.Log("Puddle was Solved!");
-                    //}
-                    Destroy(gameObject);
+                    if (solvedArray[i] && (playerObject.GetComponent<ToolPickup>().pickedUpToolName == toolNameArray[i]))
+                    {
+                          Destroy(gameObject);
+
+                    }
 
                 }
+ 
             }
 
         }
