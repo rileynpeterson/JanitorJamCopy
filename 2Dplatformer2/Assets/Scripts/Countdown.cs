@@ -11,10 +11,10 @@ public class Countdown : MonoBehaviour
 
     public Text countDisplay;            //Text variable for GameObject reference
 
-    //public GameObject puddle;
-    //public GameObject pizza;
+    public GameObject puddle;
+    public GameObject pizza;
     //public GameObject children;
-    public GameObject problem;
+    //public GameObject problem;
     //for problems
 
     // PRIVATE DECLARATIONS
@@ -25,6 +25,8 @@ public class Countdown : MonoBehaviour
 
     private float elapsedTime;           //holds Time.deltaTime value
 
+    private int puddle_count;
+    private int pizza_count; 
     
 
 
@@ -38,6 +40,8 @@ public class Countdown : MonoBehaviour
     {
         countDisplay.text = "Time: 00:00.00";
         timerIsRunning = false;
+        puddle_count = 0;
+        pizza_count = 0;
         BeginTimer();
 
     }
@@ -57,7 +61,7 @@ public class Countdown : MonoBehaviour
         timerIsRunning = false;
     }
 
-
+    //      ignore this for now. i guess we're doing all time based things in this script....
     //Let's clear something up if you want to make things happen along with the timer display.
     // I have float called elapsedTime and I set it to start at 480f which I believe is 
     // 480 seconds which, (for display purposes), is 8:00 am (60s * 8 = 480s) - [remember realtime seconds is minutes within the game]
@@ -71,18 +75,33 @@ public class Countdown : MonoBehaviour
     //following this logic, you DON'T have to reference Countdown.cs. You can just make a float 
     // elapsed time variable, start from 480 seconds (= 480f). And follow the logic explained above^
     // :)
+    public void PuddleSolved()
+    {
+        puddle_count = puddle_count - 1; //this function will be called when prefab with "puddle" tag is destroyed??
+    }
 
     private IEnumerator UpdateTimer()
     {
-        Invoke("SpawnPuddles", 3.0f);
+        
+
         while (timerIsRunning)
         {
             //I'm not going to touch this for now:
             // Spawn problems
-            
+            if (puddle_count < 8)
+            {
+                Invoke("SpawnPuddles", UnityEngine.Random.Range(10, 25));
+                puddle_count = puddle_count + 1;
+            }
+
+            if (pizza_count < 10)
+            {
+                Invoke("SpawnPizza", UnityEngine.Random.Range(25, 40));
+                pizza_count = pizza_count + 1;
+            }
             elapsedTime += Time.deltaTime;
              
-            //Invoke("SpawnPizza", 20.0f);
+            
             timePlaying = TimeSpan.FromSeconds(elapsedTime);
             if (elapsedTime < 720.00)       //720.00 "seconds" is equal to 12min00seconds
             {
@@ -91,7 +110,7 @@ public class Countdown : MonoBehaviour
 
             if (elapsedTime >= 720.00)          // if time >= 12:00pm
             {
-                //Invoke("SpawnCrowd", 2.0f);
+                //Invoke("SpawnCrowd", 2.0f); // spawn crowd at lunch time... how get rid??
                 if (elapsedTime > 780.00)           // if time is greater than 12:59
                 {                                   // then convert to 01:00 (rather than 13:00)
                     timePlaying = TimeSpan.FromSeconds(elapsedTime - 720.00);    //subtract 12:00
@@ -132,6 +151,38 @@ public class Countdown : MonoBehaviour
 
     void SpawnPuddles()
     {
+        
+        float spawn_x;
+        float spawn_y;
+        float[,] room_ranges = new float[,]
+        {
+            { -8.7f, 3.5f, -3.7f, 0.0f },
+            { -0.5f, 4.0f, 1.6f, 1.15f },
+            { 4.7f, 4.0f, 9.0f, 1.0f },
+            { -9.3f, -3.3f, -3.4f, -4.0f },
+            { -0.4f, -2.0f, 3.0f, -4.2f },
+            { 5.8f, -1.7f, 9.3f, -4.1f }
+        };
+
+        int room_index = UnityEngine.Random.Range(0, 6);
+        spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
+        spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
+
+        //problem = GameObject.FindWithTag("puddle");
+        // Need to make more prefabs of different problem types then randomly choose one 
+  
+          
+          GameObject puddleInstance = Instantiate(puddle, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
+          puddleInstance.GetComponent<ProblemScript>().solvedByMop = true;
+          Debug.Log("Spawned a Puddle!");
+
+        //GameObject problemInstance = Instantiate(problem, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
+        //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
+        // problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
+    }
+
+    void SpawnPizza()
+    {
         float spawn_x;
         float spawn_y;
 
@@ -149,38 +200,13 @@ public class Countdown : MonoBehaviour
         spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
         spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
 
-        //problem = GameObject.FindWithTag("puddle");
-        // Need to make more prefabs of different problem types then randomly choose one 
-        GameObject problemInstance = Instantiate(problem, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
-        problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
-        //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
+         //problem = GameObject.FindWithTag("pizza");
+         // Need to make more prefabs of different problem types then randomly choose one 
+        GameObject pizzaInstance = Instantiate(pizza, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
+        pizzaInstance.GetComponent<ProblemScript>().solvedByMop = true;
+        //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;   // ???
+        //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true; // ?????
     }
-
-    //void SpawnPizza()
-    //{
-    //    float spawn_x;
-    //    float spawn_y;
-
-    //    float[,] room_ranges = new float[,]
-    //    {
-    //        { -8.7f, 3.5f, -3.7f, 0.0f },
-    //        { -0.5f, 4.0f, 1.6f, 1.15f },
-    //        { 4.7f, 4.0f, 9.0f, 1.0f },
-    //        { -9.3f, -3.3f, -3.4f, -4.0f },
-    //        { -0.4f, -2.0f, 3.0f, -4.2f },
-    //        { 5.8f, -1.7f, 9.3f, -4.1f }
-    //    };
-
-    //    int room_index = UnityEngine.Random.Range(0, 6);
-    //    spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
-    //    spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
-
-    //    //problem = GameObject.FindWithTag("pizza");
-    //    // Need to make more prefabs of different problem types then randomly choose one 
-    //    GameObject problemInstance = Instantiate(pizza, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
-    //    //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;
-    //    //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
-    //}
 
     //void SpawnCrowd()
     //{

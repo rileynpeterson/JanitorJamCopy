@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -3086933284124601392}
   m_Layer: 0
   m_Name: Problem Prefab 1
-  m_TagString: problem
+  m_TagString: puddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb2f5684e179054982f5fc93145954a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  other: {fileID: 0}
   solvedByMop: 1
   solvedByTape: 0
   solvedByLadder: 0

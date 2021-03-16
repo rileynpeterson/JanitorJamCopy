@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProblemScript : MonoBehaviour
 {
     private GameObject playerObject;
+    public Countdown other;
 
     public bool solvedByMop;
     public bool solvedByTape;
@@ -32,7 +33,13 @@ public class ProblemScript : MonoBehaviour
             {
                 if (true)
                 {
+                    //if (gameObject.tag == "puddle")
+                    //{
+                    //    other.PuddleSolved();
+                      //  Debug.Log("Puddle was Solved!");
+                    //}
                     Destroy(gameObject);
+
                 }
             }
 
