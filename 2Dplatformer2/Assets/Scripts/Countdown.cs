@@ -12,7 +12,7 @@ public class Countdown : MonoBehaviour
     public Text countDisplay;            //Text variable for GameObject reference
 
     public GameObject puddle;
-    public GameObject pizza;
+    //public GameObject pizza;
     //public GameObject children;
     //public GameObject problem;
     //for problems
@@ -94,11 +94,11 @@ public class Countdown : MonoBehaviour
                 puddle_count = puddle_count + 1;
             }
 
-            if (pizza_count < 10)
-            {
-                Invoke("SpawnPizza", UnityEngine.Random.Range(25, 40));
-                pizza_count = pizza_count + 1;
-            }
+            //if (pizza_count < 10)
+            //{
+            //    Invoke("SpawnPizza", UnityEngine.Random.Range(25, 40));
+            //    pizza_count = pizza_count + 1;
+            //}
             elapsedTime += Time.deltaTime;
              
             
@@ -181,32 +181,32 @@ public class Countdown : MonoBehaviour
         // problemInstance.GetComponent<ProblemScript>().solvedByBroom = true;
     }
 
-    void SpawnPizza()
-    {
-        float spawn_x;
-        float spawn_y;
+    //void SpawnPizza()
+    //{
+    //    float spawn_x;
+    //    float spawn_y;
 
-        float[,] room_ranges = new float[,]
-        {
-            { -8.7f, 3.5f, -3.7f, 0.0f },
-            { -0.5f, 4.0f, 1.6f, 1.15f },
-            { 4.7f, 4.0f, 9.0f, 1.0f },
-            { -9.3f, -3.3f, -3.4f, -4.0f },
-            { -0.4f, -2.0f, 3.0f, -4.2f },
-            { 5.8f, -1.7f, 9.3f, -4.1f }
-        };
+    //    float[,] room_ranges = new float[,]
+    //    {
+    //        { -8.7f, 3.5f, -3.7f, 0.0f },
+    //        { -0.5f, 4.0f, 1.6f, 1.15f },
+    //        { 4.7f, 4.0f, 9.0f, 1.0f },
+    //        { -9.3f, -3.3f, -3.4f, -4.0f },
+    //        { -0.4f, -2.0f, 3.0f, -4.2f },
+    //        { 5.8f, -1.7f, 9.3f, -4.1f }
+    //    };
 
-        int room_index = UnityEngine.Random.Range(0, 6);
-        spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
-        spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
+    //    int room_index = UnityEngine.Random.Range(0, 6);
+    //    spawn_x = UnityEngine.Random.Range(room_ranges[room_index, 0], room_ranges[room_index, 2]);
+    //    spawn_y = UnityEngine.Random.Range(room_ranges[room_index, 1], room_ranges[room_index, 3]);
 
-         //problem = GameObject.FindWithTag("pizza");
-         // Need to make more prefabs of different problem types then randomly choose one 
-        GameObject pizzaInstance = Instantiate(pizza, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
-        pizzaInstance.GetComponent<ProblemScript>().solvedByMop = true;
-        //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;   // ???
-        //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true; // ?????
-    }
+    //     //problem = GameObject.FindWithTag("pizza");
+    //     // Need to make more prefabs of different problem types then randomly choose one 
+    //    GameObject pizzaInstance = Instantiate(pizza, new Vector3(spawn_x, spawn_y, 0), Quaternion.identity);
+    //    pizzaInstance.GetComponent<ProblemScript>().solvedByMop = true;
+    //    //problemInstance.GetComponent<ProblemScript>().solvedByMop = true;   // ???
+    //    //problemInstance.GetComponent<ProblemScript>().solvedByBroom = true; // ?????
+    //}
 
     //void SpawnCrowd()
     //{
